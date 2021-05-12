@@ -7,6 +7,17 @@
 #errorPhoto{
     display: none;
 }
+.dark-mode{
+    filter: invert(95%) hue-rotate(180deg);
+}
+
+#darkMode{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+}
 
 .imagePreview{
     width: 300px;
