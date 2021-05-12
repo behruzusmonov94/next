@@ -115,14 +115,14 @@ auth.onAuthStateChanged((user) => {
 
 
         db.collection('Products').orderBy('name').get().then((snapshot) => {
-            snapshot.forEach((doc)=>{
+            snapshot.forEach((doc) => {
                 let name = doc.data().name;
                 let price = doc.data().price;
                 productList.innerHTML += `
                 <li class="list-group-item d-flex justify-content-between" data-id="${doc.id}">
                 <div>
                     <span>${name} - </span>
-                    <span class="badge bg-primary">${price}</span>
+                    <span class="badge bg-primary">${usdFormatter.format(price)}</span>
                 </div>
 
                 <button class="btn btn-danger btn-sm" onclick="remove(this)">Delete</button>
@@ -130,9 +130,20 @@ auth.onAuthStateChanged((user) => {
             })
         })
 
+        // Create our number formatter.
+        var usdFormatter = new Intl.NumberFormat('de-DE', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0,
 
 
-        
+            // These options are needed to round to whole numbers if that's what you want.
+            //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+
+
+
 
 
         // // read data
@@ -148,7 +159,7 @@ auth.onAuthStateChanged((user) => {
         //     <span>${name} - </span>
         //     <span class="badge bg-primary">${price}</span>
         // </div>
-        
+
         // <button class="btn btn-danger btn-sm" onclick="remove(this)">Delete</button>
         // </li>`
         //     })
@@ -175,11 +186,11 @@ auth.onAuthStateChanged((user) => {
 
         })
 
-        
+
 
         //signout
         const signOut = document.getElementById('signOut')
-        signOut.addEventListener('click', ()=>{
+        signOut.addEventListener('click', () => {
             auth.signOut()
         })
 
@@ -196,16 +207,16 @@ function remove(e) {
     const dataID = e.parentElement.getAttribute('data-id')
 
     var conf = confirm('Rostan ham o\'chirmoqchimisiz?')
-    
-    if(conf){
-        db.collection('Products').doc(dataID).delete().then(()=>{
+
+    if (conf) {
+        db.collection('Products').doc(dataID).delete().then(() => {
             e.parentElement.remove()
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err);
         })
     }
-    
 
-  
+
+
 
 }
