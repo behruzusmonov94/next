@@ -11,6 +11,7 @@ function render(url, name, price) {
         <div class="card-body">
             <p class="card-text fs-5 text-center">${name}</p>
             <p class="card-text fs-5 fw-bold text-primary text-center">${price}</p>
+            <a href="https://t.me/erankaa" class="btn btn-outline-primary btn-sm">Batafsil</a>
         </div>
     </div>
 
