@@ -9,8 +9,8 @@ function render(url, name, price) {
     <div class="box card">
         <img src="${url}">
         <div class="card-body">
-            <p class="card-text fs-5 text-center">${name}</p>
-            <p class="card-text fs-5 fw-bold text-primary text-center">${formatter.format(price)}</p>
+            <p class="card-text fs-6 text-center fw-bold">${name}</p>
+            <p class="card-text fs-6 fw-bold text-primary text-center">${formatter.format(price)}</p>
             <a href="https://t.me/erankaa" class="btn btn-outline-primary btn-sm">Batafsil</a>
         </div>
     </div>
@@ -32,6 +32,9 @@ var formatter = new Intl.NumberFormat('en-US', {
   });
   
 
+//exchange dollar to uzs
+const exDollar = 10520;
+
 
 
 
@@ -45,7 +48,7 @@ db.collection('Products').get().then((snapshot)=>{
         
 
         pathReference.getDownloadURL().then((url)=>{
-            app.innerHTML += render(url, name, price*10520)
+            app.innerHTML += render(url, name, price*exDollar)
         })
 
     })
