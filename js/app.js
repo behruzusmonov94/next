@@ -114,59 +114,45 @@ auth.onAuthStateChanged((user) => {
 
 
 
-        // db.collection('Products').orderBy('name').get().then((snapshot) => {
-        //     snapshot.forEach((doc)=>{
-        //         let name = doc.data().name;
-        //         let price = doc.data().price;
-        //         productList.innerHTML += `
-        //         <li class="list-group-item d-flex justify-content-between" data-id="${doc.id}">
-        //         <div>
-        //             <span>${name} - </span>
-        //             <span class="badge bg-primary">${price}</span>
-        //         </div>
-
-        //         <button class="btn btn-danger btn-sm" onclick="remove(this)">Delete</button>
-        //         </li>`
-        //     })
-        // })
-
-
-
-        //delete data
-        function remove(e) {
-            let dataID = e.parentElement.getAttribute('data-id')
-
-            console.log(dataID);
-            confirm('Rostan ham o\'chirmoqchimisiz?', () => {
-                db.collection('Products').doc(dataID).delete().then(() => {
-                    e.parentElement.remove()
-                }).catch((err) => {
-                    console.log(err);
-                })
-            })
-
-        }
-
-
-
-        // read data
-
-        db.collection('Products').onSnapshot((snapshot) => {
-            let changes = snapshot.docChanges();
-            changes.forEach(change => {
-                let name = change.doc.data().name;
-                let price = change.doc.data().price;
+        db.collection('Products').orderBy('name').get().then((snapshot) => {
+            snapshot.forEach((doc)=>{
+                let name = doc.data().name;
+                let price = doc.data().price;
                 productList.innerHTML += `
-        <li class="list-group-item d-flex justify-content-between" data-id="${change.doc.id}">
-        <div>
-            <span>${name} - </span>
-            <span class="badge bg-primary">${price}</span>
-        </div>
-        
-        <button class="btn btn-danger btn-sm" onclick="remove(this)">Delete</button>
-        </li>`
+                <li class="list-group-item d-flex justify-content-between" data-id="${doc.id}">
+                <div>
+                    <span>${name} - </span>
+                    <span class="badge bg-primary">${price}</span>
+                </div>
+
+                <button class="btn btn-danger btn-sm" onclick="remove(this)">Delete</button>
+                </li>`
             })
         })
+
+
+
+        
+
+
+        // // read data
+
+        // db.collection('Products').onSnapshot((snapshot) => {
+        //     let changes = snapshot.docChanges();
+        //     changes.forEach(change => {
+        //         let name = change.doc.data().name;
+        //         let price = change.doc.data().price;
+        //         productList.innerHTML += `
+        // <li class="list-group-item d-flex justify-content-between" data-id="${change.doc.id}">
+        // <div>
+        //     <span>${name} - </span>
+        //     <span class="badge bg-primary">${price}</span>
+        // </div>
+        
+        // <button class="btn btn-danger btn-sm" onclick="remove(this)">Delete</button>
+        // </li>`
+        //     })
+        // })
 
 
 
@@ -203,3 +189,23 @@ auth.onAuthStateChanged((user) => {
         location.href = 'auth.html'
     }
 });
+
+
+//delete data
+function remove(e) {
+    const dataID = e.parentElement.getAttribute('data-id')
+
+    var conf = confirm('Rostan ham o\'chirmoqchimisiz?')
+    
+    if(conf){
+        db.collection('Products').doc(dataID).delete().then(()=>{
+            e.parentElement.remove()
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+    
+
+  
+
+}
