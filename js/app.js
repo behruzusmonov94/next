@@ -60,9 +60,14 @@ addProductForm.addEventListener('submit', (e) => {
                 },
                 function complete() {
                     console.log('success');
+                    var output = document.getElementById('output');
+                    output.src = "";
+                    addProductForm.reset()
+                    document.querySelector('.productAddedMessage').style.display = "block"
+                    uploader.value = "0"
                 }
             )
-
+            
         }).catch(() => {
             console.log('error');
         })
@@ -84,7 +89,7 @@ addProductForm.addEventListener('submit', (e) => {
     }
 
 
-    addProductForm.reset()
+    
 
 
 
@@ -94,4 +99,61 @@ addProductForm.addEventListener('submit', (e) => {
 
 
 
+const productList = document.getElementById('productList');
 
+
+
+
+// db.collection('Products').orderBy('name').get().then((snapshot) => {
+//     snapshot.forEach((doc)=>{
+//         let name = doc.data().name;
+//         let price = doc.data().price;
+//         productList.innerHTML += `
+//         <li class="list-group-item d-flex justify-content-between" data-id="${doc.id}">
+//         <div>
+//             <span>${name} - </span>
+//             <span class="badge bg-primary">${price}</span>
+//         </div>
+        
+//         <button class="btn btn-danger btn-sm" onclick="remove(this)">Delete</button>
+//         </li>`
+//     })
+// })
+
+
+
+//delete data
+function remove(e){
+    let dataID = e.parentElement.getAttribute('data-id')
+
+    console.log(dataID);
+    confirm('Rostan ham o\'chirmoqchimisiz?', ()=>{
+        db.collection('Products').doc(dataID).delete().then(()=>{
+            e.parentElement.remove()
+        }).catch((err)=>{
+            console.log(err);
+        })    
+    })
+    
+}
+
+
+
+// read data
+
+db.collection('Products').onSnapshot((snapshot) => {
+    let changes = snapshot.docChanges();
+    changes.forEach(change => {
+        let name = change.doc.data().name;
+        let price = change.doc.data().price;
+        productList.innerHTML += `
+        <li class="list-group-item d-flex justify-content-between" data-id="${change.doc.id}">
+        <div>
+            <span>${name} - </span>
+            <span class="badge bg-primary">${price}</span>
+        </div>
+        
+        <button class="btn btn-danger btn-sm" onclick="remove(this)">Delete</button>
+        </li>`
+    })
+})

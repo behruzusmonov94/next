@@ -17,28 +17,45 @@
 
 
 
-    <div class="container">
+    <div class="container width-600">
         <div class="row">
             <h1>NEXTSHOP - ADMIN</h1>
-            <h2>Add new product</h2>
+            <hr>
+            <h3>Add new product</h3>
 
             <form id="addProductForm">
                 <div class="mb-3">
                     <label id="errorName"></label>
-                    <input type="text" class="form-control my-2" id="name" placeholder="Product name">
+                    <input type="text" class="form-control my-2" id="name" placeholder="Product name" required>
                     <label id="errorPrice"></label>
 
-                    <input type="text" class="form-control my-2" id="price" placeholder="Price">
+                    <input type="text" class="form-control my-2" id="price" placeholder="Price" required>
                     <label id="errorPhoto"></label>
 
-                    <input class="form-control my-2" type="file" id="photo" accept="image/*" multiple>
+                    <input class="form-control my-2" type="file" id="photo" accept="image/*" multiple required>
                     <progress value="0" max="100" id="uploader" style="width: 100%;">0%</progress>
-                    <img src="" id="output" alt="" class="imagePreview">
+                    <div class="d-flex w-100 justify-content-center">
+                        <img src="" id="output" class="imagePreview">
+                        
+                    </div>
+                    <p class="productAddedMessage">Product added</p>
                     <button class="btn btn-primary w-100" type="submit">ADD PRODUCT</button>
                 </div>
             </form>
 
         </div>
+    </div>
+
+    <hr>
+    <div class="container">
+        <h3>Product List</h3>
+
+        <div >
+            <ul class="list-group" id="productList">
+
+            </ul>
+        </div>
+
     </div>
 
 
@@ -74,7 +91,6 @@
         var db = firebase.firestore();
         // Get a reference to the storage service, which is used to create references in your storage bucket
         var storage = firebase.storage();
-       
     </script>
 
 

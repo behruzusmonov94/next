@@ -4,13 +4,16 @@ const app = document.getElementById('app')
 
 function render(url, name, price) {
     let html = `
-    <div class="card m-2" style="width: 18rem;">
-    <img src="${url}" class="card-img-top" alt="">
-    <div class="card-body">
-        <p class="card-text fs-5 text-center">${name}</p>
-        <p class="card-text fs-5 fw-bold text-primary text-center">${price}</p>
+    
+
+    <div class="box card">
+        <img src="${url}">
+        <div class="card-body">
+            <p class="card-text fs-5 text-center">${name}</p>
+            <p class="card-text fs-5 fw-bold text-primary text-center">${price}</p>
+        </div>
     </div>
-</div>
+
     `
     return html
 }
