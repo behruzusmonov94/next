@@ -38,20 +38,3 @@ db.collection('Products').get().then((snapshot)=>{
 
 
 
-//dark mode
-
-const darkMode = document.getElementById('darkMode')
-const html = document.querySelector('html')
-
-darkMode.addEventListener('click', (e) => {
-    html.classList.toggle('dark-mode')
-    if(e.target.classList.contains('fa-moon')){
-        e.target.classList.remove('fa-moon')
-        e.target.classList.add('fa-sun')
-    }else{
-        e.target.classList.remove('fa-sun')
-        e.target.classList.add('fa-moon')
-    }
-    
-})
-
